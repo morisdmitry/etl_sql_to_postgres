@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+
+  sqlite_etl_db:
+    image: postgres:13.3
+    container_name: sqlite_etl_db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes: 
+      - ./db_schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    command: -p ${DB_PORT}
+
